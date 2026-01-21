@@ -1,0 +1,14 @@
+// tính theo dealine
+19/1/2026 - 22/1/2026
+1. Tạo project laravel, tạo repo github, đẩy project lên repo
+2. Viết các route xử lý các yêu cầu sau
+- '/': trả về view home
+- 'prodct': trả về view prodcut.index (có 1 vài sản phẩm mấu, có nút thêm mới dẫn đến form thêm mới, fix trên html) 
+- '/product/add': trả về view product.add (có form thêm mới sản phẩm)
+- '/product/{id}' : id kiểu chuỗi, giá trị mặc định là 123
+- Gom nhóm '/product'
+- Khi không tìm thấy route thì trả về error.404
+- cho 1 ví dụ đặt tên route và gọi route qua tên
+- '/sinhvien/{name}/{msvv}': trả về thông tin giới thiệu của sinh viên làm bài, name mặc định 'Luong Xuan Hieu", msvv mặc định "123456".
+- '/banco/{n}': trả về giao diện banco hiển thị bàn cờ vua kích thước n*n
+

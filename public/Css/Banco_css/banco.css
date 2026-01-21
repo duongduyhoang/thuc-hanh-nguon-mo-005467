@@ -1,0 +1,51 @@
+/* public/Css/Banco/baco.css */
+
+.main-container {
+    text-align: center;
+}
+
+.chessboard {
+    display: grid;
+    width: fit-content; /* Để bàn cờ co giãn theo số ô */
+    border: 2px solid #333;
+    margin: 50px auto;
+}
+
+.title {
+    color: #1a202c;
+    margin-bottom: 20px;
+}
+
+/* Nút quay lại */
+.actions {
+    margin-bottom: 30px;
+}
+
+.btn-home {
+    background-color: #4a5568;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-home:hover {
+    background-color: #2d3748;
+    transform: translateY(-2px);
+}
+
+.cell {
+    width: 50px;  /* Độ rộng mỗi ô */
+    height: 50px; /* Độ cao mỗi ô */
+}
+
+.white {
+    background-color: #fff; /* Ô trắng */
+}
+
+.black {
+    background-color: #000; /* Ô đen */
+}
