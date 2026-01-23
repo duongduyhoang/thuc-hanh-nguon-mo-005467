@@ -8,9 +8,9 @@
 </head>
 <body>
 
-<!-- @extends('homepage')
+@extends('homepage')
 
-@section('noidung_chinh') -->
+@section('noidung_chinh')
     <div class="profile-card">
         <div class="avatar">
             <?php
@@ -30,6 +30,6 @@
 
         <a href="{{ route('homepage') }}" class="btn-back">Quay lại</a>
     </div>
-    <!-- @endsection -->
+    @endsection
 </body>
 </html>

@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create product</title>
-    <link rel="stylesheet" href="{{ asset('Css/create_prd.css')  }}"/>
+    <link rel="stylesheet" href="{{ asset('Css/Product/create_prd.css')  }}"/>
 </head>
 <body>
    <div class="form-container">
 
    <h2>➕ Thêm sản phẩm mới</h2>
     
-    <form action="#" method="POST">
+    <form action="{{ route('prd') }}" method="POST">
         <div class="form-group">
             <label for="product_name">Tên sản phẩm</label>
             <input type="text" id="product_name" name="name" placeholder="Ví dụ: Táo Mỹ..." required>
@@ -34,7 +34,7 @@
     </form>
    </div>
 
- <?php 
+ <!-- <?php 
  
   if(!isset($id) && empty($id)){
    echo" ";
@@ -42,6 +42,6 @@
   }else{
     echo "<h1>Id: {$id}</h1>";
   };
- ?>
+ ?> -->
 </body>
 </html>

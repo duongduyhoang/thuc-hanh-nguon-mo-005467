@@ -38,3 +38,21 @@
 .nav-links a.active {
     color: #3b82f6; /* Màu xanh khi đang ở trang đó */
 }
+
+.nav-logo {
+    font-family: 'Montserrat', sans-serif; /* Nếu không dùng Google Font thì thay bằng 'Arial' */
+    font-size: 28px;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    color: #FF2D20; /* Màu đỏ thương hiệu Laravel */
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo:hover {
+    color: #ff0d00;
+    text-shadow: 2px 2px 40px rgb(255, 0, 0);
+}
