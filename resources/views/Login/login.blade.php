@@ -21,7 +21,7 @@
             <input type="password" id="password" name="password" required>
         </div>
 
-        <button type="submit" class="btn-login">Đăng Ký</button>
+        <button type="submit" class="btn-login">Đăng Nhập </button>
         <p class="footer-text">
             Đã có tài khoản?
             <a href="{{ route('register') }}">Đăng Ký</a>

@@ -13,11 +13,26 @@
         <a href="/" class="nav-logo">Laravel</a>
         
         <ul class="nav-links">
-            <li><a href="{{ route('prd') }}" class="{{ request()->is('product*') ? 'active' : '' }}">Product</a></li>
+            
+    @if(session()->has('is_adult'))
+        {{-- ĐÃ LOGIN --}}
+        <li><a href="{{ route('prd') }}" class="{{ request()->is('product*') ? 'active' : '' }}">Product</a></li>
             <li><a href="{{ route('profile') }}" class="{{ request()->is('profile*') ? 'active' : '' }}">Sinh Viên</a></li>
-            <li><a href="{{ route('login') }}" class="{{ request()->is('login*') ? 'active' : '' }}">Login</a></li>
+        <li>
+            <a href="{{ route('logout') }}">Logout</a>
+        </li>
+    @else
+        {{-- CHƯA LOGIN --}}
+        
+        <li>
+            <a href="{{ route('login') }}"
+               class="{{ request()->is('login*') ? 'active' : '' }}">
+                Login
+            </a>
+        </li>
+    @endif
 
-
+        </ul>
         <!-- <div class="nav-auth">
             <a href="#" class="btn-contact">Liên hệ</a>
         </div> -->

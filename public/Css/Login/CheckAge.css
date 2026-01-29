@@ -1,0 +1,86 @@
+/* Nền tối để làm nổi bật Modal */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: radial-gradient(circle, #1a1a2e 0%, #16213e 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Container chính của Modal */
+.modal {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px); /* Hiệu ứng kính mờ */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal h2 {
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+.modal p {
+    color: #cbd5e0;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* Cấu trúc Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Style chung cho nút */
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+/* Nút Đồng ý (Xác nhận) */
+button[value="yes"] {
+    background-color: #27ae60 !important;
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+}
+
+button[value="yes"]:hover {
+    background-color: #2ecc71 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+}
+
+/* Nút Từ chối (Rời khỏi) */
+button[value="no"] {
+    background-color: transparent !important;
+    color: #e74c3c !important;
+    border: 1px solid #e74c3c !important;
+}
+
+button[value="no"]:hover {
+    background-color: #e74c3c !important;
+    color: white !important;
+}
+
+/* Hiệu ứng khi nhấn */
+button:active {
+    transform: translateY(0);
+}

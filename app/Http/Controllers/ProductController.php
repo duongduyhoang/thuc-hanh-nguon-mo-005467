@@ -2,10 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckTimeAccess;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class ProductController extends Controller
+
+class ProductController extends Controller implements HasMiddleware
 {
+    //tất cả trong hàm controller này sẽ được áp dụng 
+    public static function middleware(): array
+    {
+        return [
+            CheckTimeAccess::class,
+
+        ];
+    }
+
     // tên hàm này viết trong route
     public function Index()
     {
@@ -72,19 +84,35 @@ class ProductController extends Controller
         //     return 'Đăng nhập thất bại';
         // }
 
+        $username = trim($request->input('username'));
+        $password = trim($request->input('password'));
+
         $user = session('register_user');
+
+        if (!$user) {
+            return view('Login.login', [
+                'error' => 'Bạn chưa có tài khoản!'
+            ]);
+        }
+
 
         if (
             $request->input('username') == $user['username'] &&
             $request->input('password') == $user['password']
         ) {
-            // return 'Đăng nhập thành công' . response()->json($request->all());
-            return view('Login.login', [
-                'success' => 'Đăng nhập thành công!'
+
+            session([
+                'user' => $user
             ]);
+
+
+            return redirect()->route('checkAge');
+
+            // return 'Đăng nhập thành công' . response()->json($request->all());
+
         } else {
             // return 'Đăng nhập thất bại';
-            return view('Login.login',[
+            return view('Login.login', [
                 'error' => 'Sai tài khoản hoặc mật khẩu!'
             ]);
         }
@@ -118,9 +146,12 @@ class ProductController extends Controller
 
         //with(): lưu xuống session
         // return redirect('/login')->with('success', 'Đăng ký thành công, hãy đăng nhập');
-        return view('Login.register', [
-            'success' => 'Đăng ký thành công!'
-        ]);
+        // return view('Login.register', [
+        //     'success' => 'Đăng ký thành công!'
+        // ]);
+        return redirect()
+            ->route('login')
+            ->with("message", "đăng nhập thành công");
 
 
         // if ($request->input('username') == 'h' && $request->input('password') == '12') {
@@ -129,5 +160,40 @@ class ProductController extends Controller
         // } else {
         //     return 'Đăng Ký thất bại';
         // }
+    }
+
+    //Logout
+    public function Logout()
+    {
+
+        // session()->forget('register_user');
+        //session()->flush();
+        session()->forget(['user', 'is_adult', 'register_user']);
+        return redirect()->route('login');
+    }
+
+
+    // check tuổi
+
+    public function GetAge()
+    {
+        return view('CheckAge.checkAge');
+    }
+
+    public function CheckAge(Request $request)
+    {
+
+        session([
+            'ageuser' => $request->confirm,
+        ]);
+
+        if (session('ageuser') == 'yes') {
+            // Thiết lập session
+            session(['is_adult' => true]);
+            return redirect()->route('homepage');
+        } else {
+            session()->forget(['user', 'is_adult', 'register_user']);
+            return redirect()->route('login');
+        }
     }
 }
