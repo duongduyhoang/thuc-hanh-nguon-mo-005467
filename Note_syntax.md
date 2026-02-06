@@ -9,5 +9,4 @@
 
 
 # tạo model
-- php artisan make:model [tên model] -m
 - php artisan make:factory ProductFactory --model=Product

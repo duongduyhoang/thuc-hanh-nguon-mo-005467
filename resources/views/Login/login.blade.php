@@ -12,8 +12,8 @@
         <h2>Đăng Nhập</h2>
 
         <div class="input-group">
-            <label for="username">Tên đăng nhập</label>
-            <input type="text" id="username" name="username" required>
+            <label for="email">Email</label>
+            <input type="text" id="username" name="email" required>
         </div>
 
         <div class="input-group">
@@ -41,5 +41,4 @@
 
     </form>
 </div>
-
 @endsection

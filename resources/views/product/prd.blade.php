@@ -1,58 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('Layout.admin')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
-    <link rel="stylesheet" href="{{ asset('Css/Product/prd.css') }}">
-</head>
+@section('content')
+<div class="container">
+    <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h1>📦 Danh sách sản phẩm</h1>
+        <a href="{{ route('prd_create') }}" class="btn-add" style="background-color: #28a745; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+            + Thêm sản phẩm mới
+        </a>
+    </div>
 
-<body>
+    <div class="product-grid">
+        @forelse($products as $prd)
+        <div class="product-card" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 8px;">
+            <div class="product-info">
+                <h3>{{ $prd->name }}</h3>
+                <div class="price">Giá: <strong>{{ number_format($prd->price) }}</strong> VNĐ</div>
+                <div class="stock">Kho: {{ $prd->stock }}</div>
 
-@extends('homepage')
-
-@section('noidung_chinh')
-    <div class="container">
-        <div class="header">
-            <h1>📦 Danh sách sản phẩm</h1>
-            <a href="{{ route('prd_create') }}" class="btn-add">+ Thêm sản phẩm mới</a>
-        </div>
-
-        <h1>
-             @foreach($Product as $a)
-                <div>{{ $a['id'] }} - {{ $a['name'] }} - {{ $a['price'] }} </div>
-            @endforeach
-        </h1>
-
-            <div class="product-grid">
-        <?php
-        // data test
-        // $Product = [
-        //     ["id" => 1, "name" => "Bo", "price" => "900.000"],
-        //     ["id" => 1, "name" => "Dua Hau", "price" => "27300.000"],
-        //     ["id" => 1, "name" => "Ga", "price" => "300.000"],
-        //     ["id" => 1, "name" => "Kem", "price" => "700.000"],
-        //     ["id" => 1, "name" => "Vit", "price" => "20.000"],
-        //     ["id" => 1, "name" => "Cam", "price" => "1000.000"],
-        // ];
-
-        foreach($Product as $prd):
-        ?>
-        <div class="product-card">
-                <div class="product-info">
-                    <h3>{{ $prd['name'] }}</h3>
-                    <div class="price">{{ $prd['price'] }}</div>
-                    <!-- <a href="#" class="btn-detail">Xem chi tiết</a> -->
-                    <a href="{{ route('detail_prd', ['id' => $prd['id']]) }}" class="btn-detail">+ Chi tiết sản phẩm</a>
-
+                <div class="actions" style="margin-top: 15px;">
+                    <a href="{{ route('detail_prd', ['id' => $prd->id]) }}" class="btn-detail" style="color: #007bff; margin-right: 15px;">
+                        Xem chi tiết
+                    </a>
+                    <a href="{{ route('edit_prd', ['id' => $prd->id]) }}" class="btn-detail" style="color:rgb(0, 228, 27); margin-right: 15px;">
+                     Update
+                    </a>
+                    <form action="{{ route('delete_prd', ['id' => $prd->id]) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" style="background: none; border: none; color: #dc3545; cursor: pointer; font-weight: bold; padding: 0;">
+                            🗑️ Xóa
+                        </button>
+                    </form>
                 </div>
             </div>
-        <?php endforeach; ?>
-
+        </div>
+        @empty
+        <p>Hiện chưa có sản phẩm nào trong hệ thống.</p>
+        @endforelse
     </div>
-    </div>
+</div>
 @endsection
-</body>
-
-</html>

@@ -61,7 +61,7 @@ class ProductController extends Controller implements HasMiddleware
     public function CreatProduct()
     {
 
-        return view('product.prd_create');
+        // return view('product.prd_create');
     }
 
     //     public function store(Request $request){
@@ -190,7 +190,7 @@ class ProductController extends Controller implements HasMiddleware
         if (session('ageuser') == 'yes') {
             // Thiết lập session
             session(['is_adult' => true]);
-            return redirect()->route('homepage');
+            return redirect()->route('admin');
         } else {
             session()->forget(['user', 'is_adult', 'register_user']);
             return redirect()->route('login');

@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Products;
 use App\Http\Controllers\Testcontroller;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckLoginUser;
 use App\Http\Middleware\CheckTimeAccess;
 use Illuminate\Support\Facades\Route;
@@ -20,19 +23,18 @@ Route::Fallback(function () {
 
 // login
 
-Route::get('/login', [ProductController::class, 'login'])->name('login');
-Route::post('/login', [ProductController::class, 'checkLogin'])->name('login.process');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'checkLogin'])->name('login.process');
 
 //Register
 
-Route::get('/register', [ProductController::class, 'register'])->name('register');
-Route::post('/register', [ProductController::class, 'checkRegister'])->name('register.proccess');
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'checkRegister'])->name('register.proccess');
 
 
 //logout
 Route::get('/logout', [ProductController::class, 'Logout'])->name('logout');
 
-Route::resource('test', Testcontroller::class);
 
 
 // Middle tổng 
@@ -45,14 +47,34 @@ Route::middleware('checkuser')->group(function () {
     // group route
     Route::prefix('product')->group(function () {
         // sử dụng group
-        Route::controller(ProductController::class)->group(function () {
+        // Route::controller(ProductController::class)->group(function () {
+        Route::controller(Products::class)->group(function () {
 
             Route::get('/prd', 'index')->name('prd');
-            Route::get('/detail_prd/{id}', 'GetDetail')->name('detail_prd');
-            Route::get('/add', 'CreatProduct')->name('prd_create');
+            Route::get('/detail_prd/{id}', 'show')->name('detail_prd');
+            Route::get('/edit_prd/{id}', 'edit')->name('edit_prd');
+            Route::put('/update_prd/{id}', 'update')->name('update_prd_one');
+            Route::get('/add', 'create')->name('prd_create');
+            Route::post('/add/store','store')->name('store_prd');
+            Route::delete('/delete/{id}','destroy')->name('delete_prd');
 
-            Route::post('/store', 'store')->name('prd_store');
         });
+    });
+
+    //group user
+    Route::prefix('Users')->group(function(){
+
+        Route::controller(UserController::class)->group(function (){
+          Route::get('/getallUser','index')->name('ListUser');
+          Route::delete('/delete/{id}','destroy')->name('deleteUser');
+          Route::get('/GetAddUser','create')->name('getAdd');
+          Route::get('/GetEditUser/{id}','edit')->name('getOneUser');
+          Route::put('/EditUser/{id}','update')->name('update_user_one');
+
+
+
+        });
+
     });
 
     // sinh vien
@@ -75,3 +97,5 @@ Route::middleware('checkuser')->group(function () {
     Route::get('/age', [ProductController::class, 'GetAge'])->name('checkAge');
     Route::post('/age', [ProductController::class, 'CheckAge'])->name('checkAge.confirm');
 });
+
+Route::get('/admin', [Products::class, 'index'])->name('admin');
