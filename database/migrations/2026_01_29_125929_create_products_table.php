@@ -17,6 +17,10 @@ return new class extends Migration
             $table->decimal("price");
             $table->decimal("stock");
             $table->timestamps();
+
+            // liên kết với category
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
         });
     }
 

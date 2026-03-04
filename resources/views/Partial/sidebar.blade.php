@@ -56,6 +56,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{{ route('category_index') }}" class="nav-link {{ Route::is('ListUser') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Danh sách nhãnh hàng</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{ route('prd') }}" class="nav-link {{ Route::is('prd') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Danh sách sản phẩm</p>

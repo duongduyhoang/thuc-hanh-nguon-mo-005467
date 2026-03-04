@@ -17,6 +17,15 @@
     <label>Số lượng</label><br>
     <input type="number" name="stock"><br><br>
 
+    <label>Danh mục sản phẩm</label><br>
+    <select name="category_id" required>
+        <option value="">-- Chọn danh mục --</option>
+        @foreach($categories as $cat)
+            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+        @endforeach
+    </select>
+    <br><br>
+
     <button type="submit">Lưu</button>
 </form>
 

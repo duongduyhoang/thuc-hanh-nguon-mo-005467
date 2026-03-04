@@ -12,6 +12,15 @@ class Product extends Model
     protected $fillable = [
         'name',
         'price',
-        'stock'
+        'stock',
+        'category_id',
     ];
+
+    /**
+     * Thiết lập mối quan hệ: Một sản phẩm thuộc về một danh mục
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }

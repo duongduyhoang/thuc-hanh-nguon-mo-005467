@@ -1,0 +1,86 @@
+/* Tổng thể container */
+.container {
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Nút Thêm mới */
+a[href*="create"], a.btn-add {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: background 0.3s;
+}
+
+a[href*="create"]:hover {
+    background-color: #0056b3;
+}
+
+/* Định dạng Bảng */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Bỏ border="1" ở HTML đi nhé */
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table th {
+    background-color: #343a40;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    color: #555;
+    vertical-align: middle;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+table tr:hover {
+    background-color: #f1f4f9;
+}
+
+/* Các nút hành động */
+a[href*="getOneCategory"] {
+    color: #ffc107;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+button[type="submit"] {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #a71d2a;
+}

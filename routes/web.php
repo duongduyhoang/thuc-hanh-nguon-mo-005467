@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Products;
@@ -55,26 +56,33 @@ Route::middleware('checkuser')->group(function () {
             Route::get('/edit_prd/{id}', 'edit')->name('edit_prd');
             Route::put('/update_prd/{id}', 'update')->name('update_prd_one');
             Route::get('/add', 'create')->name('prd_create');
-            Route::post('/add/store','store')->name('store_prd');
-            Route::delete('/delete/{id}','destroy')->name('delete_prd');
+            Route::post('/add/store', 'store')->name('store_prd');
+            Route::delete('/delete/{id}', 'destroy')->name('delete_prd');
+        });
+    });
 
+    Route::prefix('Category')->group(function () {
+
+        Route::controller(CategoryController::class)->group(function () {
+            Route::get('/listcategory', 'index')->name('category_index');
+            Route::get('/CreateCategory', 'create')->name('C_category');
+            Route::post('/Addcategory','store')->name('store_category');
+            Route::delete('/delete/{id}', 'destroy')->name('DeleteCategory');
+            Route::get('/GetEditCategory/{id}', 'edit')->name('getOneCategory');
+            Route::put('/UpdateCategory/{id}','update')->name('Update_category');
         });
     });
 
     //group user
-    Route::prefix('Users')->group(function(){
+    Route::prefix('Users')->group(function () {
 
-        Route::controller(UserController::class)->group(function (){
-          Route::get('/getallUser','index')->name('ListUser');
-          Route::delete('/delete/{id}','destroy')->name('deleteUser');
-          Route::get('/GetAddUser','create')->name('getAdd');
-          Route::get('/GetEditUser/{id}','edit')->name('getOneUser');
-          Route::put('/EditUser/{id}','update')->name('update_user_one');
-
-
-
+        Route::controller(UserController::class)->group(function () {
+            Route::get('/getallUser', 'index')->name('ListUser');
+            Route::delete('/delete/{id}', 'destroy')->name('deleteUser');
+            Route::get('/GetAddUser', 'create')->name('getAdd');
+            Route::get('/GetEditUser/{id}', 'edit')->name('getOneUser');
+            Route::put('/EditUser/{id}', 'update')->name('update_user_one');
         });
-
     });
 
     // sinh vien
@@ -90,7 +98,7 @@ Route::middleware('checkuser')->group(function () {
 
         return view('Banco.banco', [
             'number' => $n,
-        ]); 
+        ]);
     })->name('banco');
 
     // kiểm tra tuổi trước khi vào Page

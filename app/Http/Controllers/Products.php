@@ -38,7 +38,8 @@ class Products extends Controller
         $request->validate([
             'name'  => 'required',
             'price' => 'required|numeric|max:9999999999',
-            'stock' => 'required|integer'
+            'stock' => 'required|integer',
+            'category_id' => 'required|exists:categories,id'
         ]);
 
         Product::create($request->all());
