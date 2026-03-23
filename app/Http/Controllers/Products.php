@@ -2,22 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 use App\Models\Product;
-
+use Illuminate\Support\Facades\Storage;
 
 class Products extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //lấy tất cả sản phẩm
-        $products = Product::all();
         $title = "Danh sách sản phẩm";
-        return view('product.prd', compact('products', 'title'));
+
+      
+        $categories = \App\Models\Category::all();
+
+   
+        $products = Product::query()
+            ->when($request->category_id, function ($query, $categoryId) {
+              
+                return $query->where('category_id', $categoryId);
+            })
+            ->latest() 
+            ->get();
+
+        return view('product.prd', compact('products', 'title', 'categories'));
     }
 
     /**
@@ -26,7 +38,9 @@ class Products extends Controller
     public function create()
     {
         //
-        return view('product.prd_create');
+        $categories = Category::all();
+
+        return view('product.prd_create', compact('categories'));
     }
 
     /**
@@ -36,15 +50,26 @@ class Products extends Controller
     {
         //
         $request->validate([
-            'name'  => 'required',
-            'price' => 'required|numeric|max:9999999999',
-            'stock' => 'required|integer',
-            'category_id' => 'required|exists:categories,id'
+            'name'        => 'required',
+            'price'       => 'required|numeric',
+            'stock'       => 'required|integer',
+            'category_id' => 'required|exists:categories,id',
+            'image'       => 'nullable|image|max:2048',
         ]);
 
-        Product::create($request->all());
 
-        return redirect()->route('prd');
+        $data = $request->all();
+
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+            $data['image'] = $path;
+        }
+
+
+        Product::create($data);
+
+        return redirect()->route('prd')->with('success', 'Thêm thành công!');
     }
 
     /**
@@ -54,7 +79,7 @@ class Products extends Controller
     {
         //
         $product = Product::findOrFail($id);
-        // Trả về trang chỉ để xem thông tin
+    
         return view('product.detail_prd', compact('product'));
     }
 
@@ -75,23 +100,38 @@ class Products extends Controller
     {
         //
 
-        $request->validate([
-            'name'  => 'required',
-            'price' => 'required|numeric|max:9999999999',
-            'stock' => 'required|numeric'
-        ]);
-
         $product = Product::findOrFail($id);
 
-        // Ép kiểu dữ liệu về số chuẩn để Database không từ chối
+
+        $request->validate([
+            'name'  => 'required',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Validate ảnh
+        ]);
+
         $product->name = $request->name;
-        $product->price = (float) $request->price;
-        $product->stock = (int) $request->stock; // Ép "10.00" về số 10 tròn trịa
+        $product->price = $request->price;
+        $product->stock = $request->stock;
+
+ 
+        if ($request->hasFile('image')) {
+            
+            if ($product->image && Storage::disk('public')->exists($product->image)) {
+                Storage::disk('public')->delete($product->image);
+            }
+
+            
+            $path = $request->file('image')->store('products', 'public');
+
+          
+            $product->image = $path;
+        }
+
 
         $product->save();
-        // $product->update($request->all());
 
-        return redirect()->route('prd');
+        return redirect()->route('prd')->with('success', 'Cập nhật sản phẩm thành công!');
     }
 
     /**

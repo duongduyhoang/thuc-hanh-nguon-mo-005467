@@ -43,12 +43,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
-                </a>
-              </li>
+
               <li class="nav-item">
                 <a href="{{ route('ListUser') }}" class="nav-link {{ Route::is('ListUser') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
@@ -61,12 +56,44 @@
                   <p>Danh sách nhãnh hàng</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{ route('prd') }}" class="nav-link {{ Route::is('prd') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Danh sách sản phẩm</p>
-                </a>
-              </li>
+<li class="nav-item {{ Request::get('category_id') || Route::is('prd') ? 'menu-open' : '' }}">
+    <a href="#" class="nav-link {{ Request::get('category_id') || Route::is('prd') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-boxes"></i>
+        <p>
+            Danh sách sản phẩm
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{ route('prd') }}" class="nav-link {{ !Request::get('category_id') && Route::is('prd') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tất cả sản phẩm</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{ route('prd', ['category_id' => 3]) }}" class="nav-link {{ Request::get('category_id') == 3 ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Apple</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{ route('prd', ['category_id' => 7]) }}" class="nav-link {{ Request::get('category_id') == 7 ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Xiaomi</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{ route('prd', ['category_id' => 4]) }}" class="nav-link {{ Request::get('category_id') == 4 ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Asus</p>
+            </a>
+        </li>
+    </ul>
+</li>
             </ul>
           </li>
           <li class="nav-item">

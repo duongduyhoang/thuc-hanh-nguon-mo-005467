@@ -50,7 +50,7 @@
               <li class="breadcrumb-item active">Title</li>
             </ol>
           </div><!-- /.col -->
-        </div><!-- /.row -->
+        </div><!-- /.row --> 
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->

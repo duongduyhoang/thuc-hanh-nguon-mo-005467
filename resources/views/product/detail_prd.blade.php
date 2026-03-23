@@ -29,9 +29,13 @@
     </nav>
 
     <div class="detail-card">
-        <div class="product-image">
-            <img src="https://via.placeholder.com/400x400?text={{ urlencode($product['name']) }}" alt="Product Image">
-        </div>
+            <div class="product-image">
+                @if($product->image)
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                @else
+                    <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No Image">
+                @endif
+            </div>
 
         <div class="product-details">
             <h1 class="product-title">{{ $product['name'] }}</h1>
